@@ -27,7 +27,6 @@ Real-Time Reporting & Insights — Live dashboards for revenue, inventory turnov
 ├── /data               # Data models, schemas, and seed data
 ├── /ml                 # Forecasting and recommendation models
 └── /docs               # Additional documentation
-🚀 Tech Stack
 
 Update this section with your actual stack.
 
