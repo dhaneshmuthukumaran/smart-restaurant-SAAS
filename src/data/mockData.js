@@ -2,10 +2,10 @@
 // Every function here is written so swapping to real fetch() calls later is a 1:1 replacement.
 
 export const STAFF = [
-  { id: "s1", name: "Ananya Rao", role: "Waiter", pin: "1234", email: "ananya@floorops.test", password: "password", avatarColor: "#4c8dbf" },
-  { id: "s2", name: "Karthik Iyer", role: "Cashier", pin: "2345", email: "karthik@floorops.test", password: "password", avatarColor: "#e8a33d" },
-  { id: "s3", name: "Divya Menon", role: "Kitchen Staff", pin: "3456", email: "divya@floorops.test", password: "password", avatarColor: "#3fae68" },
-  { id: "s4", name: "Suresh Babu", role: "Shift Manager", pin: "4567", email: "suresh@floorops.test", password: "password", avatarColor: "#d6534a" },
+  { id: "s1", name: "Ananya Rao", role: "Waiter", email: "ananya@floorops.test", password: "password", avatarColor: "#4c8dbf" },
+  { id: "s2", name: "Karthik Iyer", role: "Cashier", email: "karthik@floorops.test", password: "password", avatarColor: "#e8a33d" },
+  { id: "s3", name: "Divya Menon", role: "Kitchen Staff", email: "divya@floorops.test", password: "password", avatarColor: "#3fae68" },
+  { id: "s4", name: "Suresh Babu", role: "Shift Manager", email: "suresh@floorops.test", password: "password", avatarColor: "#d6534a" },
 ];
 
 export const MENU = [

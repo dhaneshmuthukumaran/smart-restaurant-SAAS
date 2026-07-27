@@ -18,7 +18,10 @@ function save(key, value) {
   try { localStorage.setItem(key, JSON.stringify(value)); } catch { /* ignore */ }
 }
 
+const AVATAR_COLORS = ["#4c8dbf", "#e8a33d", "#3fae68", "#d6534a", "#9b7fd4", "#4fb8b0", "#c77dbb", "#7fa650"];
+
 export function AppProvider({ children }) {
+  const [staffDirectory, setStaffDirectory] = useState(() => load("fo_staffDirectory", STAFF));
   const [currentStaff, setCurrentStaff] = useState(() => load("fo_currentStaff", null));
   const [shift, setShift] = useState(() => load("fo_shift", null)); // { staffId, clockIn, clockOut }
   const [orders, setOrders] = useState(() => load("fo_orders", INITIAL_ORDERS));
@@ -28,6 +31,7 @@ export function AppProvider({ children }) {
   const [inventoryAlerts] = useState(INITIAL_INVENTORY_ALERTS);
   const [orderSeq, setOrderSeq] = useState(() => load("fo_orderSeq", 0));
 
+  useEffect(() => save("fo_staffDirectory", staffDirectory), [staffDirectory]);
   useEffect(() => save("fo_currentStaff", currentStaff), [currentStaff]);
   useEffect(() => save("fo_shift", shift), [shift]);
   useEffect(() => save("fo_orders", orders), [orders]);
@@ -37,23 +41,53 @@ export function AppProvider({ children }) {
   useEffect(() => save("fo_orderSeq", orderSeq), [orderSeq]);
 
   // ---- Auth ----
+  // All of these check staffDirectory (live, editable state) rather than the static
+  // seed list, so anyone registered through registerStaff / addStaff can log in immediately.
   function loginWithPassword(email, password) {
-    const found = STAFF.find((s) => s.email.toLowerCase() === email.toLowerCase() && s.password === password);
+    const found = staffDirectory.find((s) => s.email.toLowerCase() === email.toLowerCase() && s.password === password);
     if (found) { setCurrentStaff(found); return { ok: true }; }
     return { ok: false, error: "Email or password is incorrect." };
   }
-  function loginWithPin(pin) {
-    const found = STAFF.find((s) => s.pin === pin);
-    if (found) { setCurrentStaff(found); return { ok: true }; }
-    return { ok: false, error: "That PIN doesn't match anyone on staff." };
-  }
-  function loginWithGoogle() {
-    // Stubbed OAuth — in production this redirects to Google and the backend verifies the token.
-    setCurrentStaff(STAFF[0]);
-    return { ok: true };
+  function loginWithGoogle(profile) {
+    // Stubbed OAuth — in production this redirects to Google and the backend verifies the token,
+    // then either logs in a matching staff record or creates one from the Google profile.
+    const email = profile?.email ?? staffDirectory[0]?.email;
+    const existing = staffDirectory.find((s) => s.email.toLowerCase() === (email || "").toLowerCase());
+    if (existing) { setCurrentStaff(existing); return { ok: true }; }
+    const created = registerStaff({
+      name: profile?.name ?? "New Staff",
+      email: email ?? `staff${Date.now()}@floorops.test`,
+      role: "Waiter",
+      password: "google-oauth",
+    });
+    if (created.ok) setCurrentStaff(created.staff);
+    return created;
   }
   function logout() {
     setCurrentStaff(null);
+  }
+
+  // ---- Staff directory ----
+  function registerStaff({ name, email, role, password }) {
+    if (!name?.trim() || !email?.trim()) return { ok: false, error: "Name and email are required." };
+    if (staffDirectory.some((s) => s.email.toLowerCase() === email.toLowerCase())) {
+      return { ok: false, error: "A staff member with that email already exists." };
+    }
+    const staff = {
+      id: `s${Date.now()}`,
+      name: name.trim(),
+      role: role || "Waiter",
+      email: email.trim(),
+      password: password || "password",
+      avatarColor: AVATAR_COLORS[staffDirectory.length % AVATAR_COLORS.length],
+    };
+    setStaffDirectory((prev) => [...prev, staff]);
+    pushNotification("system", `${staff.name} was added to the staff directory.`);
+    return { ok: true, staff };
+  }
+  function removeStaff(id) {
+    setStaffDirectory((prev) => prev.filter((s) => s.id !== id));
+    if (currentStaff?.id === id) logout();
   }
 
   // ---- Shift ----
@@ -121,15 +155,15 @@ export function AppProvider({ children }) {
   }
 
   const value = useMemo(() => ({
-    staffDirectory: STAFF,
-    currentStaff, loginWithPassword, loginWithPin, loginWithGoogle, logout,
+    staffDirectory, registerStaff, removeStaff,
+    currentStaff, loginWithPassword, loginWithGoogle, logout,
     shift, isClockedIn, clockIn, clockOut,
     orders, createOrder, updateOrder, updateOrderStatus, cancelOrder,
     tables, setTableStatus,
     menu, setMenu,
     notifications, pushNotification, markNotificationRead, markAllNotificationsRead, unreadCount,
     inventoryAlerts,
-  }), [currentStaff, shift, isClockedIn, orders, tables, menu, notifications, unreadCount, inventoryAlerts]);
+  }), [staffDirectory, currentStaff, shift, isClockedIn, orders, tables, menu, notifications, unreadCount, inventoryAlerts]);
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 }

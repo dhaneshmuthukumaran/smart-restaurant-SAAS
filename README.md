@@ -1,115 +1,49 @@
-# 🍽️ Smart Restaurant Optimization Platform
+# FloorOps — Staff Frontend
 
-> Intelligent real-time optimization of restaurant capacity, inventory, and menu to reduce waste, maximize revenue, and give customers dynamic, personalized experiences.
+Staff-side console for the Smart Restaurant Management System (VibeAthon 6.0). Built as a standalone React frontend running on **mock data** — no backend required to demo it. Every context function is written so swapping to real MERN API calls later is a drop-in replacement.
 
-## 📋 Overview
+## Tech stack
+- React 18 + Vite
+- React Router v6
+- Tailwind CSS v4
+- lucide-react icons
+- State: React Context + localStorage (stands in for a backend + DB until wired up)
 
-This platform leverages real-time data and intelligent algorithms to help restaurants operate more efficiently and profitably — while delivering a smarter, more personalized experience to every guest. By continuously analyzing demand patterns, inventory levels, and seating capacity, the system enables data-driven decisions that reduce food waste, optimize pricing and promotions, and improve table turnover.
-
-## ✨ Key Features
-
-- **Dynamic Capacity Management** — Real-time tracking and optimization of table/seating utilization to reduce wait times and maximize covers per shift.
-- **Smart Inventory Control** — Predictive stock monitoring that flags low/excess inventory and suggests reorder points to minimize spoilage and waste.
-- **Adaptive Menu Engineering** — Automatically surfaces high-margin, high-availability items and adjusts menu recommendations based on stock levels and demand trends.
-- **Dynamic Pricing & Promotions** — Real-time pricing adjustments (e.g., off-peak discounts, surge pricing) to balance demand and maximize revenue.
-- **Personalized Customer Experience** — Tailored recommendations based on customer preferences, order history, and dietary needs.
-- **Waste Reduction Analytics** — Dashboards and alerts to track and minimize food waste across the supply chain.
-- **Real-Time Reporting & Insights** — Live dashboards for revenue, inventory turnover, and capacity utilization.
-
-## 🏗️ Architecture
-
-```
-├── /client            # Frontend application (customer & staff-facing UI)
-├── /server             # Backend API and business logic
-├── /services
-│   ├── /capacity       # Seating & reservation optimization engine
-│   ├── /inventory       # Inventory tracking & forecasting service
-│   ├── /menu            # Menu engineering & recommendation engine
-│   └── /pricing         # Dynamic pricing engine
-├── /data               # Data models, schemas, and seed data
-├── /ml                 # Forecasting and recommendation models
-└── /docs               # Additional documentation
-```
-
-## 🚀 Tech Stack
-
-> _Update this section with your actual stack._
-
-- **Frontend:** React / Next.js
-- **Backend:** Node.js (Express) / Python (FastAPI)
-- **Database:** PostgreSQL / MongoDB
-- **Real-Time Layer:** WebSockets / Kafka
-- **ML/Forecasting:** Python (scikit-learn, pandas)
-- **Deployment:** Docker, AWS/GCP/Azure
-
-## 📦 Getting Started
-
-### Prerequisites
-
-- Node.js >= 18.x
-- Python >= 3.10 (if using ML services)
-- Docker (optional, for containerized setup)
-
-### Installation
-
+## Run it
 ```bash
-# Clone the repository
-git clone https://github.com/your-username/your-repo.git
-cd your-repo
-
-# Install dependencies
 npm install
-
-# Set up environment variables
-cp .env.example .env
-```
-
-### Running Locally
-
-```bash
-# Start the development server
 npm run dev
 ```
+Open the printed local URL. Log in with:
+- **Sign in:** `ananya@floorops.test` / `password` (also karthik@, divya@, suresh@ — same password), then any 4-digit OTP
+- **Google** button is a stubbed OAuth (matches by email, or auto-creates an account) — swap `loginWithGoogle` in `src/context/AppContext.jsx` for a real OAuth flow.
+- **Sign up:** anyone can create a new staff account from the "Sign up" tab on the login screen (name, email, role, password), or a Shift Manager can add teammates from Profile → Staff directory. New accounts can sign in immediately — the staff list is live state (persisted to `localStorage`), not a hardcoded array, so it grows as people join. There is no PIN login; only email/password and Google.
 
-The app should now be running at `http://localhost:3000`.
-
-## ⚙️ Environment Variables
-
-| Variable | Description |
+## Features covered
+| Area | Where |
 |---|---|
-| `DATABASE_URL` | Connection string for the database |
-| `API_KEY` | API key for external services |
-| `PORT` | Port to run the server on |
+| Staff sign in / sign up (email/password + OTP, Google OAuth) | `pages/Login.jsx` |
+| Shift clock-in / clock-out | `TopBar.jsx`, `pages/Profile.jsx` |
+| Order creation & editing (dine-in / takeaway / delivery) | `components/OrderFormModal.jsx` |
+| Table selection & floor plan | `pages/FloorPlan.jsx` |
+| Kitchen Display System (New → Cooking → Ready) | `pages/KDS.jsx` |
+| Bill generation, split bills, discounts, payment | `components/BillModal.jsx`, `pages/Billing.jsx` |
+| Order cancellation & modification | `components/CancelOrderModal.jsx`, `pages/Orders.jsx` |
+| Order history & search | `pages/OrderHistory.jsx` |
+| Staff alerts & notifications | `pages/Notifications.jsx`, inventory alerts on `pages/Dashboard.jsx` |
+| Dashboard overview | `pages/Dashboard.jsx` |
+| Profile / settings | `pages/Profile.jsx` |
+| Search & filtering | Top bar search on Orders, Floor Plan, KDS, Billing, History |
 
-## 🧪 Testing
+## Design direction
+Dark, high-contrast "kitchen ticket" theme — real KDS screens run dark to cut glare under kitchen lighting. Orders, kitchen tickets, and bills all use a shared `.ticket` component styled like a torn order chit (perforated top edge, colored status corner), with Oswald for headers, Inter for body text, and IBM Plex Mono for order IDs, prices, and timestamps — mimicking a receipt printer.
 
-```bash
-npm run test
-```
+## Wiring up the real backend
+Everything data-related lives in `src/context/AppContext.jsx` and `src/data/mockData.js`. To connect it to your Node/Express + MongoDB (or Postgres/Supabase) backend:
+1. Replace the `STAFF`/`MENU`/`TABLES`/orders arrays in `mockData.js` with `fetch`/axios calls.
+2. Replace `loginWithPassword`, `registerStaff`, `loginWithGoogle` with real auth endpoint calls (JWT/session + real OTP + real Google OAuth redirect, plus real password hashing on signup).
+3. Replace the `useState` + `localStorage` pattern in `AppContext.jsx` with API calls in each action (`createOrder`, `updateOrderStatus`, etc.), and consider React Query/SWR for caching and real-time refresh.
+4. For live kitchen/table updates across devices, add a WebSocket or polling layer so the KDS and floor plan update in real time across multiple staff devices.
 
-## 🗺️ Roadmap
-
-- [ ] Real-time capacity optimization engine
-- [ ] Inventory forecasting model (MVP)
-- [ ] Dynamic menu recommendation system
-- [ ] Customer personalization module
-- [ ] Waste analytics dashboard
-- [ ] Multi-location support
-
-## 🤝 Contributing
-
-Contributions are welcome! Please open an issue or submit a pull request with your proposed changes.
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
-
-## 📬 Contact
-
-For questions or feedback, please open an issue in this repository.
+## Notes for your submission
+This repo only covers the **staff-facing frontend** — pair it with your team's customer-facing app and backend for the full submission.
