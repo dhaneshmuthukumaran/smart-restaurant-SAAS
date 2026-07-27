@@ -1,0 +1,70 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Oswald", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+
+  --color-ink: #17191c;
+  --color-panel: #212428;
+  --color-panel-2: #262a2f;
+  --color-line: #35393f;
+  --color-paper: #eceff1;
+  --color-mute: #929aa5;
+
+  --color-ready: #3fae68;
+  --color-ready-dim: #23422f;
+  --color-cooking: #e8a33d;
+  --color-cooking-dim: #4a3a1c;
+  --color-rush: #d6534a;
+  --color-rush-dim: #4a2422;
+  --color-new: #4c8dbf;
+  --color-new-dim: #1f3547;
+}
+
+html, body, #root { height: 100%; }
+body {
+  background: var(--color-ink);
+  color: var(--color-paper);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Ticket / chit motif — the signature element used for orders, KDS cards, and bills */
+.ticket {
+  position: relative;
+  background: var(--color-panel);
+  border: 1px solid var(--color-line);
+  border-radius: 4px;
+  clip-path: polygon(
+    0% 0%, 100% 0%, 100% 100%, 0% 100%
+  );
+}
+.ticket::before {
+  content: "";
+  position: absolute;
+  top: -1px; left: 0; right: 0;
+  height: 6px;
+  background-image: radial-gradient(circle at 6px 3px, var(--color-ink) 3px, transparent 3.5px);
+  background-size: 12px 6px;
+  background-repeat: repeat-x;
+}
+.ticket-corner {
+  position: absolute;
+  top: 0; right: 0;
+  width: 0; height: 0;
+  border-style: solid;
+  border-width: 0 22px 22px 0;
+  border-radius: 0 4px 0 0;
+}
+
+.font-display { font-family: var(--font-display); }
+.font-mono { font-family: var(--font-mono); }
+
+.scrollbar-thin::-webkit-scrollbar { width: 6px; height: 6px; }
+.scrollbar-thin::-webkit-scrollbar-thumb { background: var(--color-line); border-radius: 3px; }
+.scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}

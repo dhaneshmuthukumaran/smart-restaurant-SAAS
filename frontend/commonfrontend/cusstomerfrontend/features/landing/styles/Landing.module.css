@@ -1,0 +1,287 @@
+/* features/landing/styles/Landing.module.css */
+
+/* ===== Container ===== */
+.landingContainer {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ===== Hero Section ===== */
+.heroSection {
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem 0 4rem;
+  border-bottom: 1px solid #1f1f1f;
+}
+
+.heroTitle {
+  font-size: clamp(3.5rem, 12vw, 7rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  margin-bottom: 1.5rem;
+  color: #e5e5e5;
+}
+
+.gradientText {
+  background: linear-gradient(135deg, #f5b041, #f1c40f, #e67e22);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.heroSub {
+  font-size: 1.2rem;
+  color: #b0b0b0;
+  max-width: 580px;
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+}
+
+.heroButtons {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.btnPrimary {
+  background: #f1c40f;
+  color: #0b0b0b;
+  border: none;
+  padding: 0.9rem 2.8rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 60px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-block;
+  text-decoration: none;
+  letter-spacing: -0.01em;
+}
+
+.btnPrimary:hover {
+  background: #f5d64a;
+  transform: scale(1.02);
+  box-shadow: 0 10px 30px -10px rgba(241, 196, 15, 0.3);
+}
+
+.btnOutline {
+  background: transparent;
+  color: #f0f0f0;
+  border: 1px solid #3a3a3a;
+  padding: 0.9rem 2.4rem;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 60px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.btnOutline:hover {
+  border-color: #888;
+  background: #1a1a1a;
+}
+
+/* ===== Features Section ===== */
+.featuresSection {
+  padding: 5rem 0;
+  border-bottom: 1px solid #1f1f1f;
+}
+
+.sectionHeader {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.sectionHeader h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: #e5e5e5;
+}
+
+.sectionSub {
+  color: #a0a0a0;
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.featuresGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.featureCard {
+  background: #141414;
+  padding: 2rem 1.8rem;
+  border-radius: 1.5rem;
+  border: 1px solid #252525;
+  transition: all 0.3s ease;
+}
+
+.featureCard:hover {
+  border-color: #f1c40f;
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(241, 196, 15, 0.05);
+}
+
+.featureIcon {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.featureCard h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #e5e5e5;
+}
+
+.featureCard p {
+  color: #b0b0b0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* ===== Steps Section ===== */
+.stepsSection {
+  padding: 5rem 0;
+  border-bottom: 1px solid #1f1f1f;
+}
+
+.stepsFlow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: space-between;
+  margin-top: 2rem;
+  position: relative;
+}
+
+.stepsFlow::before {
+  content: '';
+  position: absolute;
+  top: 2.5rem;
+  left: 10%;
+  right: 10%;
+  height: 2px;
+  background: #252525;
+  z-index: 0;
+}
+
+.stepItem {
+  flex: 1 1 180px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  background: #0b0b0b;
+  padding: 0 0.5rem;
+}
+
+.stepNum {
+  display: inline-block;
+  width: 3rem;
+  height: 3rem;
+  line-height: 3rem;
+  border-radius: 50%;
+  background: #1f1f1f;
+  color: #f1c40f;
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin-bottom: 0.8rem;
+  border: 2px solid #2a2a2a;
+}
+
+.stepItem h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #e5e5e5;
+}
+
+.stepItem p {
+  color: #999;
+  font-size: 0.9rem;
+}
+
+/* ===== Downloaded Image Section ===== */
+.downloadedImageSection {
+  padding: 4rem 0;
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid #1f1f1f;
+}
+
+.downloadedImageCard {
+  max-width: 760px;
+  width: 100%;
+  background: #0f0f0f;
+  border: 1px solid #242424;
+  border-radius: 2rem;
+  padding: 2rem;
+  display: grid;
+  gap: 1.5rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+}
+
+.downloadedImageLabel {
+  color: #f1c40f;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.downloadedImage {
+  width: 100%;
+  border-radius: 1.25rem;
+  object-fit: cover;
+  min-height: 280px;
+  background: #111;
+}
+
+.downloadedImageDescription {
+  color: #b0b0b0;
+  line-height: 1.75;
+  font-size: 1rem;
+}
+
+/* ===== CTA Section ===== */
+.ctaSection {
+  padding: 5rem 0 4rem;
+  text-align: center;
+}
+
+.ctaSection h2 {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+  color: #e5e5e5;
+}
+
+.ctaSub {
+  color: #a0a0a0;
+  font-size: 1.1rem;
+  max-width: 500px;
+  margin: 0 auto 2.5rem;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 700px) {
+  .container { padding: 0 1.2rem; }
+  .btnOutline { margin-left: 0; margin-top: 0.8rem; display: inline-block; }
+  .heroSection { min-height: 50vh; }
+  .stepsFlow::before { display: none; }
+  .stepItem { flex: 1 1 100%; }
+  .featuresGrid { grid-template-columns: 1fr; }
+}

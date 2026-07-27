@@ -1,0 +1,461 @@
+/* styles/Booking.module.css */
+
+/* ===== Container ===== */
+.bookingContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+/* ===== Layout ===== */
+.bookingGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+@media (max-width: 768px) {
+  .bookingGrid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+/* ===== Cards ===== */
+.card {
+  background: #fff;
+  border-radius: 0.9rem;
+  border: 1px solid #e5e7eb;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.cardTitle {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+/* ===== Calendar ===== */
+.calendarContainer {
+  padding: 1rem;
+  background: #fff;
+  border-radius: 0.9rem;
+  border: 1px solid #e5e7eb;
+}
+
+.calendarHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.monthLabel {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #111827;
+}
+
+.navButton {
+  padding: 0.25rem 0.75rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.25rem;
+  background: #fff;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: all 0.2s ease;
+}
+
+.navButton:hover {
+  background: #f9fafb;
+  border-color: #d1d5db;
+}
+
+.weekDays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.weekDayLabel {
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #6b7280;
+}
+
+.daysGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.25rem;
+}
+
+.dayButton {
+  padding-top: 100%;
+  position: relative;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dayButton:hover:not(:disabled) {
+  background: #f9fafb;
+  border-color: #e5e7eb;
+}
+
+.dayButton.selected {
+  background: #fefce8;
+  border-color: #f1c40f;
+}
+
+.dayButton.today {
+  background: #f3f4f6;
+}
+
+.dayButton.blocked {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.dayLabel {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 0.85rem;
+  color: #111827;
+}
+
+.dayLabel.blocked {
+  color: #d1d5db;
+}
+
+.todayDot {
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #f1c40f;
+}
+
+/* ===== Time Slots ===== */
+.timeSlotsContainer {
+  margin-top: 1rem;
+}
+
+.timeSlotsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.timeSlotsTitle {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #374151;
+}
+
+.timeSlotsLegend {
+  display: flex;
+  gap: 0.75rem;
+  font-size: 0.75rem;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: #6b7280;
+}
+
+.legendDot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.timeSlotsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 0.5rem;
+}
+
+.timeSlot {
+  padding: 0.6rem 0.5rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  background: #fff;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.timeSlot:hover:not(:disabled) {
+  border-color: #f1c40f;
+  background: #fefce8;
+}
+
+.timeSlot.selected {
+  border-color: #f1c40f;
+  background: #fefce8;
+  box-shadow: 0 0 0 3px rgba(241, 196, 15, 0.1);
+}
+
+.timeSlot.unavailable {
+  background: #f3f4f6;
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+
+.timeSlot.limited {
+  border-color: #f39c12;
+  background: #fefce8;
+}
+
+.timeSlotLabel {
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.limitedBadge {
+  display: block;
+  font-size: 0.6rem;
+  color: #f39c12;
+  margin-top: 0.2rem;
+}
+
+.availableCount {
+  display: block;
+  font-size: 0.6rem;
+  color: #6b7280;
+  margin-top: 0.2rem;
+}
+
+/* ===== Form ===== */
+.formGroup {
+  margin-bottom: 1rem;
+}
+
+.formLabel {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 0.25rem;
+}
+
+.formInput {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.formInput:focus {
+  border-color: #f1c40f;
+  box-shadow: 0 0 0 3px rgba(241, 196, 15, 0.1);
+}
+
+.formInput.error {
+  border-color: #ef4444;
+}
+
+.formInput.error:focus {
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+.formInput:disabled {
+  background: #f3f4f6;
+  cursor: not-allowed;
+}
+
+.formError {
+  margin: 0.25rem 0 0 0;
+  color: #ef4444;
+  font-size: 0.8rem;
+}
+
+/* ===== Buttons ===== */
+.btnPrimary {
+  padding: 0.6rem 1.5rem;
+  background: #f1c40f;
+  color: #0b0b0b;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btnPrimary:hover:not(:disabled) {
+  background: #f5d64a;
+}
+
+.btnPrimary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btnSecondary {
+  padding: 0.6rem 1.5rem;
+  background: #fff;
+  color: #6b7280;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btnSecondary:hover:not(:disabled) {
+  background: #f9fafb;
+}
+
+.btnDanger {
+  padding: 0.6rem 1.5rem;
+  background: #fff;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btnDanger:hover:not(:disabled) {
+  background: #fef2f2;
+}
+
+/* ===== Confirmation ===== */
+.confirmationContainer {
+  background: #fff;
+  border-radius: 0.9rem;
+  border: 1px solid #e5e7eb;
+  overflow: hidden;
+}
+
+.confirmationHeader {
+  padding: 2rem 1.5rem;
+  text-align: center;
+  background: #f0fdf4;
+  border-bottom: 1px solid #dcfce7;
+}
+
+.confirmationIcon {
+  font-size: 4rem;
+  margin-bottom: 0.5rem;
+}
+
+.confirmationTitle {
+  margin: 0 0 0.25rem 0;
+  color: #166534;
+  font-size: 1.5rem;
+}
+
+.confirmationSubtitle {
+  margin: 0;
+  color: #15803d;
+  font-size: 0.95rem;
+}
+
+.confirmationDetails {
+  padding: 1.5rem;
+}
+
+.detailsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.detailItem {
+  padding: 0.75rem;
+  background: #f9fafb;
+  border-radius: 0.5rem;
+}
+
+.detailLabel {
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin-bottom: 0.2rem;
+}
+
+.detailValue {
+  font-weight: 600;
+  color: #111827;
+}
+
+/* ===== Skeleton ===== */
+.skeleton {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+.skeletonText {
+  height: 1rem;
+  background: #f3f4f6;
+  border-radius: 0.25rem;
+}
+
+.skeletonTitle {
+  height: 1.5rem;
+  background: #f3f4f6;
+  border-radius: 0.25rem;
+  width: 60%;
+}
+
+.skeletonButton {
+  height: 2.5rem;
+  background: #f3f4f6;
+  border-radius: 0.5rem;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 640px) {
+  .timeSlotsGrid {
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  }
+  
+  .detailsGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .detailsGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .timeSlotsHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}
