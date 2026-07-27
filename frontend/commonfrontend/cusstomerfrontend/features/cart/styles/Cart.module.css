@@ -1,0 +1,736 @@
+/* styles/Cart.module.css */
+
+/* ===== Cart Icon ===== */
+.cartIconContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: none;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.cartIconContainer:hover {
+  background: rgba(241, 196, 15, 0.1);
+}
+
+.cartIconContainer.active {
+  background: rgba(241, 196, 15, 0.15);
+}
+
+.cartIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cartBadge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  background: #ef4444;
+  color: #fff;
+  border-radius: 9999px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  line-height: 1;
+  padding: 0.1rem 0.25rem;
+  min-width: 1.2rem;
+  height: 1.2rem;
+}
+
+/* ===== Dropdown ===== */
+.dropdownOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  justify-content: flex-end;
+  animation: fadeIn 0.2s ease;
+}
+
+.dropdownContainer {
+  width: 100%;
+  max-width: 480px;
+  height: 100vh;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  animation: slideIn 0.3s ease;
+  box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+/* ===== Dropdown Header ===== */
+.dropdownHeader {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.dropdownTitle {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.itemCount {
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: #6b7280;
+  margin-left: 0.5rem;
+}
+
+.closeButton {
+  width: 2rem;
+  height: 2rem;
+  border: none;
+  border-radius: 50%;
+  background: #f3f4f6;
+  color: #6b7280;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.closeButton:hover {
+  background: #e5e7eb;
+}
+
+/* ===== Dropdown Content ===== */
+.dropdownContent {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem 1.5rem;
+}
+
+/* ===== Cart Items List ===== */
+.cartItemsList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* ===== Cart Item ===== */
+.cartItem {
+  display: flex;
+  gap: 1rem;
+  padding: 0.75rem;
+  background: #f9fafb;
+  border-radius: 0.5rem;
+  border: 1px solid #e5e7eb;
+  transition: all 0.2s ease;
+}
+
+.cartItem:hover {
+  border-color: #f1c40f;
+}
+
+.cartItem.unavailable {
+  opacity: 0.6;
+  border-color: #fecaca;
+}
+
+.itemImage {
+  width: 4rem;
+  height: 4rem;
+  flex-shrink: 0;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background: #f3f4f6;
+}
+
+.itemImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.imagePlaceholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  background: #f3f4f6;
+}
+
+.itemInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.itemHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.25rem;
+}
+
+.itemName {
+  font-weight: 600;
+  color: #111827;
+  font-size: 0.95rem;
+}
+
+.itemPrice {
+  font-weight: 600;
+  color: #111827;
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+
+.itemDescription {
+  margin: 0.2rem 0;
+  font-size: 0.8rem;
+  color: #6b7280;
+  display: -webkit-box;
+  line-clamp: 1;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.itemDietary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  margin: 0.25rem 0;
+}
+
+.dietaryTag {
+  font-size: 0.6rem;
+  padding: 0.1rem 0.4rem;
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  border-radius: 9999px;
+  color: #6b7280;
+}
+
+.itemControls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+}
+
+.quantityControls {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.quantityButton {
+  width: 1.8rem;
+  height: 1.8rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.25rem;
+  background: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.quantityButton:hover:not(:disabled) {
+  border-color: #f1c40f;
+  background: #fefce8;
+}
+
+.quantityButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.quantityValue {
+  font-weight: 600;
+  color: #111827;
+  min-width: 1.5rem;
+  text-align: center;
+}
+
+.itemActions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.instructionsToggle {
+  width: 1.8rem;
+  height: 1.8rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  border-radius: 0.25rem;
+  transition: all 0.2s ease;
+}
+
+.instructionsToggle:hover {
+  background: #f3f4f6;
+}
+
+.removeButton {
+  width: 1.8rem;
+  height: 1.8rem;
+  border: none;
+  border-radius: 0.25rem;
+  background: none;
+  color: #ef4444;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: all 0.2s ease;
+}
+
+.removeButton:hover {
+  background: #fef2f2;
+}
+
+.instructionsContainer {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.instructionsInput {
+  flex: 1;
+  padding: 0.3rem 0.6rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.25rem;
+  font-size: 0.8rem;
+  outline: none;
+}
+
+.instructionsInput:focus {
+  border-color: #f1c40f;
+}
+
+.saveInstructionsButton {
+  padding: 0.3rem 0.8rem;
+  background: #f1c40f;
+  color: #0b0b0b;
+  border: none;
+  border-radius: 0.25rem;
+  font-weight: 500;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.cancelInstructionsButton {
+  padding: 0.3rem 0.8rem;
+  background: #f3f4f6;
+  color: #6b7280;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.updatingIndicator {
+  font-size: 0.7rem;
+  color: #6b7280;
+  margin-top: 0.25rem;
+}
+
+.unavailableText {
+  font-size: 0.75rem;
+  color: #ef4444;
+}
+
+/* ===== Clear Cart Button ===== */
+.clearCartButton {
+  padding: 0.4rem 1rem;
+  background: none;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  color: #6b7280;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-bottom: 1rem;
+}
+
+.clearCartButton:hover {
+  border-color: #ef4444;
+  color: #ef4444;
+  background: #fef2f2;
+}
+
+/* ===== Dropdown Summary ===== */
+.dropdownSummary {
+  border-top: 1px solid #e5e7eb;
+  padding-top: 1rem;
+}
+
+/* ===== Cart Summary ===== */
+.summaryContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.summaryTitle {
+  margin: 0 0 0.5rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.summaryRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  color: #374151;
+}
+
+.discountRow {
+  color: #f1c40f;
+}
+
+.totalRow {
+  padding-top: 0.5rem;
+  border-top: 2px solid #e5e7eb;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.totalLabel {
+  color: #111827;
+}
+
+.totalAmount {
+  color: #f1c40f;
+}
+
+/* ===== Promo Code ===== */
+.promoContainer {
+  display: flex;
+  gap: 0.5rem;
+  margin: 0.5rem 0;
+}
+
+.promoInput {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  font-size: 0.85rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.promoInput:focus {
+  border-color: #f1c40f;
+}
+
+.promoInput:disabled {
+  background: #f3f4f6;
+}
+
+.promoButton {
+  padding: 0.5rem 1rem;
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.85rem;
+}
+
+.promoButton:hover:not(:disabled) {
+  background: #f1c40f;
+  border-color: #f1c40f;
+}
+
+.promoButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.promoSuccess {
+  font-size: 0.8rem;
+  color: #2ecc71;
+  margin: 0.25rem 0;
+}
+
+.promoError {
+  font-size: 0.8rem;
+  color: #ef4444;
+  margin: 0.25rem 0;
+}
+
+/* ===== Checkout Button ===== */
+.checkoutButton {
+  width: 100%;
+  padding: 0.75rem;
+  background: #f1c40f;
+  color: #0b0b0b;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 0.5rem;
+}
+
+.checkoutButton:hover:not(:disabled) {
+  background: #f5d64a;
+}
+
+.checkoutButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.emptyMessage {
+  text-align: center;
+  font-size: 0.85rem;
+  color: #6b7280;
+  margin: 0.5rem 0 0 0;
+}
+
+/* ===== Empty State ===== */
+.emptyContainer {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.emptyIcon {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+.emptyTitle {
+  margin: 0 0 0.25rem 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.emptySub {
+  margin: 0 0 1rem 0;
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.browseButton {
+  padding: 0.6rem 1.5rem;
+  background: #f1c40f;
+  color: #0b0b0b;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.browseButton:hover {
+  background: #f5d64a;
+}
+
+/* ===== Loading ===== */
+.loadingContainer {
+  text-align: center;
+  padding: 2rem;
+}
+
+.loadingSpinner {
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  border: 3px solid #e5e7eb;
+  border-top-color: #f1c40f;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ===== Skeleton ===== */
+.skeletonContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.skeletonHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.skeletonTitle {
+  height: 1.5rem;
+  width: 40%;
+  background: #f3f4f6;
+  border-radius: 0.25rem;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.skeletonBadge {
+  height: 1.5rem;
+  width: 3rem;
+  background: #f3f4f6;
+  border-radius: 0.25rem;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.skeletonItem {
+  display: flex;
+  gap: 1rem;
+  padding: 0.75rem;
+  background: #f9fafb;
+  border-radius: 0.5rem;
+  border: 1px solid #e5e7eb;
+}
+
+.skeletonImage {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 0.5rem;
+  background: #f3f4f6;
+  flex-shrink: 0;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.skeletonContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.skeletonName {
+  height: 1rem;
+  width: 60%;
+  background: #f3f4f6;
+  border-radius: 0.25rem;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.skeletonDescription {
+  height: 0.8rem;
+  width: 80%;
+  background: #f3f4f6;
+  border-radius: 0.25rem;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.skeletonControls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.skeletonQuantity {
+  height: 1.5rem;
+  width: 4rem;
+  background: #f3f4f6;
+  border-radius: 0.25rem;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.skeletonPrice {
+  height: 1rem;
+  width: 3rem;
+  background: #f3f4f6;
+  border-radius: 0.25rem;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.skeletonSummary {
+  padding: 1rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.skeletonTotal {
+  height: 1.2rem;
+  width: 100%;
+  background: #f3f4f6;
+  border-radius: 0.25rem;
+  margin-bottom: 0.5rem;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.skeletonButton {
+  height: 2.5rem;
+  width: 100%;
+  background: #f3f4f6;
+  border-radius: 0.5rem;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 640px) {
+  .dropdownContainer {
+    max-width: 100%;
+  }
+  
+  .dropdownContent {
+    padding: 0.75rem 1rem;
+  }
+  
+  .cartItem {
+    padding: 0.5rem;
+  }
+  
+  .itemImage {
+    width: 3rem;
+    height: 3rem;
+  }
+  
+  .itemName {
+    font-size: 0.85rem;
+  }
+  
+  .itemPrice {
+    font-size: 0.85rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .dropdownContainer {
+    max-width: 420px;
+  }
+}

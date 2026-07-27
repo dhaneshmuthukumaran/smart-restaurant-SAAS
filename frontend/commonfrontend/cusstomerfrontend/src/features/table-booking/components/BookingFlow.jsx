@@ -6,6 +6,7 @@ import { PartySizeSelector } from './PartySizeSelector';
 import { SpecialRequests } from './SpecialRequests';
 import { TimeSlots } from './TimeSlots';
 import { BookingSkeleton } from './BookingSkeleton';
+import { BookingSummary } from './BookingSummary';
 import { useBooking } from '../hooks/useBooking';
 import { useAvailability } from '../hooks/useAvailability';
 import { useBookingForm } from '../hooks/useBookingForm';
@@ -71,6 +72,7 @@ const BookingFlow = () => {
           >
             <SpecialRequests value={formValues.notes} onChange={handleFormChange} />
           </BookingForm>
+          {confirmation ? <BookingSummary booking={confirmation} /> : null}
           <BookingConfirmation confirmation={confirmation} />
         </div>
       </div>
