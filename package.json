@@ -2,15 +2,31 @@
   "name": "smart-restaurant-saas",
   "version": "1.0.0",
   "private": true,
-  "description": "Smart Restaurant SaaS Platform - combined customer, staff, and backend apps",
+  "description": "Smart Restaurant SaaS Platform - customer, staff, admin frontends and backends",
   "scripts": {
-    "server": "npm --prefix behindend run start",
-    "client": "npm --prefix frontend/commonfrontend/cusstomerfrontend run dev",
-    "build": "npm --prefix frontend/commonfrontend/cusstomerfrontend run build",
-    "install-all": "npm --prefix behindend install && npm --prefix frontend/commonfrontend/cusstomerfrontend install",
-    "dev": "npm run server"
+    "dev:mock": "npm --prefix behindend run start",
+    "dev:server": "npm --prefix server run dev",
+    "dev:customer": "npm --prefix frontend/customer run dev",
+    "dev:staff": "npm --prefix frontend/staff run dev",
+    "dev:admin": "npm --prefix frontend/admin run dev",
+    "build:customer": "npm --prefix frontend/customer run build",
+    "build:staff": "npm --prefix frontend/staff run build",
+    "build:admin": "npm --prefix frontend/admin run build",
+    "install:all": "npm --prefix behindend install && npm --prefix server install && npm --prefix frontend/customer install && npm --prefix frontend/staff install && npm --prefix frontend/admin install",
+    "install:backends": "npm --prefix behindend install && npm --prefix server install",
+    "install:frontends": "npm --prefix frontend/customer install && npm --prefix frontend/staff install && npm --prefix frontend/admin install",
+    "dev": "concurrently -n mock,server,customer,staff,admin -c blue,green,yellow,magenta,cyan \"npm run dev:mock\" \"npm run dev:server\" \"npm run dev:customer\" \"npm run dev:staff\" \"npm run dev:admin\""
   },
-  "keywords": ["restaurant", "saas", "express", "react", "vite"],
+  "keywords": [
+    "restaurant",
+    "saas",
+    "express",
+    "react",
+    "vite"
+  ],
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^10.0.4"
+  }
 }
